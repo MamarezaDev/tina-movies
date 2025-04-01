@@ -1,13 +1,39 @@
 import React from "react";
+import Typed from "typed.js";
 
 export default function SearchBox() {
+  // Create reference to store the DOM element containing the animation
+  const el = React.useRef(null);
+
+  React.useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [
+        "Search for a movie...",
+        "Search for a TV show...",
+        "Search for a celebrity...",
+      ],
+      typeSpeed: 40,
+      loop: true,
+      attr: "placeholder",
+      smartBackspace: false,
+      backSpeed: 10,
+    });
+
+    return () => {
+      // Destroy Typed instance during cleanup to stop animation
+      typed.destroy();
+    };
+  }, []);
+
   return (
     <section className="mt-12">
       <div className="relative">
         <input
+          ref={el}
+          id="search"
           type="text"
           className="w-full rounded-md border-2 border-gray-800 bg-gray-900 py-3 pl-4 text-lg text-fuchsia-200 caret-fuchsia-500 outline-none placeholder:text-gray-600"
-          placeholder="Search for a movie, TV show or a celebrity you are looking for..."
+          placeholder=""
         />
         <svg
           className="absolute top-1/2 right-4 -translate-y-1/2 fill-fuchsia-200"

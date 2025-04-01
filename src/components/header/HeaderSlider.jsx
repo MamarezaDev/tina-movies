@@ -1,6 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import MovieCard from "../common/MovieCard";
 
 const images = [
   "https://static.cdn.asset.filimo.com/flmt/mov_150250_187816.jpg",
@@ -15,34 +16,48 @@ export default function HeaderSlider({ setBg }) {
     <section className="mt-10">
       <Swiper
         modules={[Autoplay]}
-        spaceBetween={20}
-        slidesPerView={4}
-        autoplay={{ delay: 2000 }}
+        spaceBetween={30}
+        slidesPerView={1}
+        autoplay={{ delay: 2000, pauseOnMouseEnter: true }}
         loop
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          // when window width is >= 480px
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          // when window width is >= 640px
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+        }}
       >
-        {images.map((image, i) => (
+        {images.map((img, i) => (
           <SwiperSlide key={i}>
-            <a href="#">
-              <img
-                onMouseOver={(e) => {
-                  document.getElementById("bg").style.opacity = "0.2";
+            <a
+              href="#"
+              onMouseEnter={() => {
+                document.getElementById("bg").style.opacity = "0.2";
 
-                  setTimeout(() => {
-                    document.getElementById("bg").style.opacity = "1";
-                    setBg(e.target.src);
-                  }, 200);
-                }}
-                onMouseLeave={() => {
-                  document.getElementById("bg").style.opacity = "0.2";
-                  setTimeout(() => {
-                    document.getElementById("bg").style.opacity = "1";
-                    setBg("/bg.jpg");
-                  }, 200);
-                }}
-                className="rounded-md"
-                src={image}
-                alt="movie"
-              />
+                setTimeout(() => {
+                  document.getElementById("bg").style.opacity = "1";
+                  setBg(img);
+                }, 200);
+              }}
+              onMouseLeave={() => {
+                document.getElementById("bg").style.opacity = "0.2";
+                setTimeout(() => {
+                  document.getElementById("bg").style.opacity = "1";
+                  setBg("/bg.jpg");
+                }, 200);
+              }}
+            >
+              <MovieCard img={img} />
             </a>
           </SwiperSlide>
         ))}

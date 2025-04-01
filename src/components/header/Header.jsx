@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header
-      className="h-screen py-12"
+      className="relative h-auto pb-8 md:h-screen md:py-12"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(3, 7, 18, 0.98), rgba(3, 7, 18, 0.94), rgba(56, 3, 59, 0.92), rgba(3, 7, 18, 0.94))`,
       }}
@@ -20,8 +20,8 @@ export default function Header() {
         src={bg}
         alt="bg"
       />
-      <div className="container mx-auto xl:max-w-7xl">
-        <Navigation />
+      <Navigation />
+      <div className="container">
         <SearchBox />
         <Socials />
         <HeaderSlider setBg={setBg} />

@@ -73,3 +73,13 @@ body {
 .icon i:after {
   transition: all 0.4s ease;
 }
+
+.swiper-pagination-bullet {
+  background-color: #fff;
+  opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #e12afb;
+  opacity: 1;
+}

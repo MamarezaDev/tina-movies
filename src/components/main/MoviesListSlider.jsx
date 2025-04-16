@@ -3,9 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import MovieCard from "../common/MovieCard";
 
 // Import Swiper styles
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
 
 export default function MoviesListSlider({ movies }) {
   return (
@@ -17,16 +17,19 @@ export default function MoviesListSlider({ movies }) {
       loop
       breakpoints={{
         640: {
+          pagination: false,
           slidesPerView: 3,
           spaceBetween: 10,
         },
         // when window width is >= 480px
         768: {
+          pagination: false,
           slidesPerView: 4,
           spaceBetween: 10,
         },
         // when window width is >= 640px
         1024: {
+          pagination: false,
           slidesPerView: 6,
           spaceBetween: 20,
         },

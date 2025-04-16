@@ -11,23 +11,48 @@ export default function Navigation() {
           <Logo />
           <ul className="ml-6 hidden gap-5 text-sm uppercase md:flex lg:ml-16 lg:gap-8 lg:text-base">
             <li>
-              <a href="#">Movies</a>
+              <a
+                href="#"
+                className="transition-all duration-100 hover:text-fuchsia-200"
+              >
+                Movies
+              </a>
             </li>
             <li>
-              <a href="#">TV Shows</a>
+              <a
+                href="#"
+                className="transition-all duration-100 hover:text-fuchsia-200"
+              >
+                TV Shows
+              </a>
             </li>
             <li>
-              <a href="#">People</a>
+              <a
+                href="#"
+                className="transition-all duration-100 hover:text-fuchsia-200"
+              >
+                People
+              </a>
             </li>
             <li>
-              <a href="#">More</a>
+              <a
+                href="#"
+                className="transition-all duration-100 hover:text-fuchsia-200"
+              >
+                More
+              </a>
             </li>
           </ul>
         </div>
         <div className="hidden md:block">
           <ul className="flex gap-5 text-sm uppercase lg:gap-8 lg:text-base">
             <li>
-              <a href="#">Login</a>
+              <a
+                href="#"
+                className="transition-all duration-100 hover:text-fuchsia-200"
+              >
+                Login
+              </a>
             </li>
             <li>
               <a

@@ -3,15 +3,17 @@ import Navigation from "./Navigation";
 import SearchBox from "./SearchBox";
 import Socials from "./Socials";
 import HeaderSlider from "./HeaderSlider";
+import { useLocation } from "react-router-dom";
 
 export default function Header() {
   const [bg, setBg] = useState("/bg.jpg");
+  const { pathname } = useLocation();
 
   return (
     <header
-      className="relative h-auto pb-8 md:h-screen md:py-12"
+      className={`relative pb-8 md:py-12 ${pathname != "/" ? "md:h-[600px]" : ""}`}
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(3, 7, 18, 0.98), rgba(3, 7, 18, 0.94), rgba(56, 3, 59, 0.92), rgba(3, 7, 18, 0.94))`,
+        backgroundImage: `linear-gradient(to bottom, rgba(3, 7, 18, 0.98), rgba(3, 7, 18, 0.90), rgba(56, 3, 59, 0.90), rgba(3, 7, 18, 0.94))`,
       }}
     >
       <img
@@ -23,8 +25,12 @@ export default function Header() {
       <Navigation />
       <div className="container">
         <SearchBox />
-        <Socials />
-        <HeaderSlider setBg={setBg} />
+        {pathname == "/" && (
+          <>
+            <Socials />
+            <HeaderSlider setBg={setBg} />
+          </>
+        )}
       </div>
     </header>
   );

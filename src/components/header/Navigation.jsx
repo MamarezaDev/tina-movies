@@ -1,66 +1,55 @@
 import React, { useState } from "react";
 import Logo from "./Logo";
+import { NavLink } from "react-router-dom";
+
+const menuItems = [
+  { path: "/movies", text: "MOVIES" },
+  { path: "/tv", text: "TV SHOWS" },
+  { path: "/people", text: "PEOPLE" },
+  { path: "/more", text: "MORE" },
+];
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function activeClass({ isActive }) {
+    return isActive
+      ? "text-fuchsia-400"
+      : "transition-all duration-100 hover:text-fuchsia-200";
+  }
 
   return (
     <>
       <nav className="flex items-center justify-between bg-gray-900 p-4 md:container md:items-baseline md:bg-transparent">
         <div className="flex items-baseline">
-          <Logo />
-          <ul className="ml-6 hidden gap-5 text-sm uppercase md:flex lg:ml-16 lg:gap-8 lg:text-base">
-            <li>
-              <a
-                href="#"
-                className="transition-all duration-100 hover:text-fuchsia-200"
-              >
-                Movies
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="transition-all duration-100 hover:text-fuchsia-200"
-              >
-                TV Shows
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="transition-all duration-100 hover:text-fuchsia-200"
-              >
-                People
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="transition-all duration-100 hover:text-fuchsia-200"
-              >
-                More
-              </a>
-            </li>
+          <Logo setIsMenuOpen={setIsMenuOpen} />
+          <ul className="ml-6 hidden gap-5 text-sm md:flex lg:ml-16 lg:gap-8 lg:text-base">
+            {menuItems.map((item) => (
+              <li key={item.path}>
+                <NavLink to={item.path} className={activeClass}>
+                  {item.text}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="hidden md:block">
           <ul className="flex gap-5 text-sm uppercase lg:gap-8 lg:text-base">
             <li>
-              <a
-                href="#"
+              <NavLink
+                to="/login"
                 className="transition-all duration-100 hover:text-fuchsia-200"
               >
                 Login
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
+              <NavLink
                 className="rounded-md bg-linear-to-r from-fuchsia-600 to-pink-600 px-5 py-3 font-medium transition-all duration-200 hover:from-fuchsia-500"
-                href="#"
+                to="/signup"
               >
                 Sign Up
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -83,32 +72,33 @@ export default function Navigation() {
         className={`overflow-hidden border-gray-700 bg-gray-900 text-center uppercase transition-all duration-300 md:hidden ${isMenuOpen ? "h-70 border-t-1 py-5" : "h-[0px] border-0 py-0"}`}
       >
         <ul className="flex flex-col gap-4">
-          <li>
-            <a href="#">Movies</a>
-          </li>
-          <li>
-            <a href="#">TV Shows</a>
-          </li>
-          <li>
-            <a href="#">People</a>
-          </li>
-          <li>
-            <a href="#">More</a>
-          </li>
+          {menuItems.map((item) => (
+            <li
+              key={item.path}
+              onClick={() => {
+                setIsMenuOpen(false);
+                document.querySelector("#menu").className = "menu icon right-1";
+              }}
+            >
+              <NavLink to={item.path} className={activeClass}>
+                {item.text}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
         <div>
           <ul className="mt-5 flex justify-center gap-5 border-t-1 border-gray-700 pt-9 uppercase">
             <li>
-              <a href="#">Login</a>
+              <NavLink to="/login">Login</NavLink>
             </li>
             <li>
-              <a
+              <NavLink
                 className="rounded-md bg-linear-to-r from-fuchsia-600 to-pink-600 px-4 py-3 font-medium"
-                href="#"
+                to="/signup"
               >
                 Sign Up
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>

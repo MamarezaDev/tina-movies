@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import MovieCard from "../common/MovieCard";
-
-const images = [
-  "https://static.cdn.asset.filimo.com/flmt/mov_150250_187816.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_146702_156504.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_srl_30352_359-b.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_srl_30442_323-b.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_153502_270256.jpg",
-];
+import { apiKey, baseUrl, imgBaseUrl } from "../../ApiConfig";
+import axios from "axios";
 
 export default function HeaderSlider({ setBg }) {
+  const [movies, setMovies] = useState([]);
+
+  async function loadMovies() {
+    const { data } = await axios.get(`${baseUrl}movie/popular?${apiKey}`);
+
+    setMovies(data.results);
+  }
+
+  useEffect(() => {
+    loadMovies();
+  }, []);
+
   return (
     <section className="mt-10">
       <Swiper
@@ -37,16 +43,15 @@ export default function HeaderSlider({ setBg }) {
           },
         }}
       >
-        {images.map((img, i) => (
-          <SwiperSlide key={i}>
-            <a
-              href="#"
+        {movies.map((movie) => (
+          <SwiperSlide key={movie.id}>
+            <div
               onMouseEnter={() => {
                 document.getElementById("bg").style.opacity = "0.2";
 
                 setTimeout(() => {
                   document.getElementById("bg").style.opacity = "1";
-                  setBg(img);
+                  setBg(`${imgBaseUrl}w780/${movie.backdrop_path}`);
                 }, 200);
               }}
               onMouseLeave={() => {
@@ -57,8 +62,8 @@ export default function HeaderSlider({ setBg }) {
                 }, 200);
               }}
             >
-              <MovieCard img={img} />
-            </a>
+              <MovieCard movie={movie} />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

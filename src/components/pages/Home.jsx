@@ -1,17 +1,21 @@
-import React from "react";
-import MoviesListSlider from "./MoviesListSlider";
+import React, { useEffect, useState } from "react";
+import MoviesListSlider from "../main/MoviesListSlider";
+import axios from "axios";
+import { apiKey, baseUrl } from "../../ApiConfig";
 
-const movies = [
-  "https://static.cdn.asset.filimo.com/flmt/mov_146702_156504.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_150872_216340.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_srl_30352_359-b.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_4325_300-b.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_srl_30442_323-b.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_150250_187816.jpg",
-  "https://static.cdn.asset.filimo.com/flmt/mov_153502_270256.jpg",
-];
+export default function Home() {
+  const [movies, setMovies] = useState([]);
 
-export default function MoviesList() {
+  async function loadMovies() {
+    const { data } = await axios.get(`${baseUrl}movie/upcoming?${apiKey}`);
+
+    setMovies(data.results);
+  }
+
+  useEffect(() => {
+    loadMovies();
+  }, []);
+
   return (
     <div className="container py-8 md:py-20">
       <div className="mb-6 flex items-baseline gap-8">

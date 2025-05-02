@@ -35,11 +35,9 @@ export default function MoviesListSlider({ movies }) {
         },
       }}
     >
-      {movies.map((movies, i) => (
-        <SwiperSlide key={i}>
-          <a href="#">
-            <MovieCard img={movies} />
-          </a>
+      {movies.map((movie) => (
+        <SwiperSlide key={movie.id}>
+          <MovieCard movie={movie} />
         </SwiperSlide>
       ))}
     </Swiper>
